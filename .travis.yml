@@ -21,7 +21,7 @@ before_install:
     - export PATH=/home/travis/miniconda2/bin:$PATH
     - conda update --yes conda
 install: 
-    - conda create --yes -n testenv python=$TRAVIS_PYTHON_VERSION numpy nose
+    - conda create --yes -n testenv python=$TRAVIS_PYTHON_VERSION Cython numpy nose
     - source activate testenv
     - pip install https://github.com/cython/cython/archive/a75fd68d504a766ba5f476654c362741413f998b.zip --install-option=--no-cython-compile
     - python setup.py build_ext --inplace
