@@ -23,7 +23,7 @@ before_install:
 install: 
     - conda create --yes -n testenv python=$TRAVIS_PYTHON_VERSION numpy nose
     - source activate testenv
-    - pip install https://github.com/cython/cython/archive/0.25.1.zip --install-option=--no-cython-compile
+    - pip install https://github.com/cython/cython/archive/9f9174b206088d2c993f53679128515be8fd675a.zip --install-option=--no-cython-compile
     - python setup.py build_ext --inplace
     - python setup.py install
 script: 
