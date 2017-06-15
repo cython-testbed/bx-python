@@ -20,9 +20,9 @@ import sys, os
 # is relative to the documentation root, use os.path.abspath to make it
 # absolute, like shown here.
 #sys.path.append(os.path.abspath('.'))
-curr_dir = os.path.dirname( __file__ )
-bx_dir = os.path.join( curr_dir, '..', '..', 'lib')
-sys.path.insert( 0, bx_dir )
+## curr_dir = os.path.dirname( __file__ )
+## bx_dir = os.path.join( curr_dir, '..', '..', 'lib')
+## sys.path.insert( 0, bx_dir )
 import bx
 
 # General configuration
@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'bx-python'
-copyright = u'2009, James Taylor'
+copyright = u'2017, James Taylor'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
