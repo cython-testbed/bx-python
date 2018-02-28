@@ -17,16 +17,11 @@ from glob import glob
 
 def main():
 
-    numpy = None
-    build_requires = [ 'python-lzo' ]
-    try:
-        import numpy
-    except:
-        build_requires.append( 'numpy' )
+    build_requires = [ 'python-lzo', 'numpy' ]
 
     metadata = \
       dict( name = "bx-python",
-            version = "0.8.0",
+            version = "0.8.1",
             install_requires=build_requires + ['six'],
             py_modules = [ 'psyco_full' ],
             package_dir = { '': 'lib' },
@@ -37,7 +32,7 @@ def main():
             author = "James Taylor, Bob Harris, David King, Brent Pedersen, Kanwei Li, and others",
             author_email = "james@jamestaylor.org",
             description = "Tools for manipulating biological data, particularly multiple sequence alignments",
-            url = "http://bitbucket.org/james_taylor/bx-python/wiki/Home",
+            url = "https://github.com/bxlab/bx-python",
             license = "MIT",
             classifiers = [
                 "Development Status :: 5 - Production/Stable",
@@ -58,6 +53,12 @@ def main():
             zip_safe = False,
             dependency_links = [],
             cmdclass=command_classes )
+
+    numpy = None
+    try:
+        import numpy
+    except:
+        pass
     
     if len(sys.argv) >= 2 and ('--help' in sys.argv[1:] or
             sys.argv[1] in ('--help-commands', 'egg_info', '--version', 'clean')):
@@ -138,6 +139,11 @@ except:
 
 # ---- Extension Modules ----------------------------------------------------
 
+# # suppress C++ #warning, e.g., to silence NumPy deprecation warnings:
+# from functools import partial
+# _Extension = Extension
+# Extension = partial(_Extension, extra_compile_args=["-Wno-cpp"])
+
 def get_extension_modules( numpy_include=None ):
     extensions = []
     # Bitsets
@@ -204,7 +210,8 @@ def get_extension_modules( numpy_include=None ):
                                         "lib/bx/align/sitemask/find_cpg.c" ] ) )
         
         # Counting n-grams in integer strings
-        extensions.append( Extension( "bx.intseq.ngramcount", [ "lib/bx/intseq/ngramcount.pyx" ] ) )
+        extensions.append( Extension( "bx.intseq.ngramcount", [ "lib/bx/intseq/ngramcount.pyx" ],
+                                      include_dirs=["src"] ) )
 
         # Seekable access to bzip2 files
         extensions.append( Extension( "bx.misc._seekbzip2", 
